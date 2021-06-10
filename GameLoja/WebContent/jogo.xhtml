@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
+<ui:composition template="template.xhtml">
+<ui:define name="conteudo">
+	<!-- Container -->
+	<div class="container-fluid">
+		<div class="row justify-content-md-center">
+			<div class="col-md-6 col-md-auto login-box">		
+				<h1>Cadastro de Produto</h1>
+				<h:form id="form1">
+					<h:messages id="messages" 
+								globalOnly="false"
+								errorStyle="color:red;margin:8px;"
+								infoStyle="color:green;margin:8px;"
+								warnStyle="color:yellow;margin:8px;" />
+					<h:panelGrid id="pgPrincipal" columns="2">
+					
+						<h:outputLabel value="Nome: " />
+						<h:inputText value="#{jogoController.jogo.nome}"
+							 validatorMessage="O nome tem que possuir mais de 6 caracteres."
+							 required="true" requiredMessage="O nome deve ser preenchido.">
+							<f:validateLength minimum="6" />
+						</h:inputText>
+						
+						<h:outputLabel value="Descrição: " />
+						<h:inputText value="#{jogoController.jogo.descricao}" />
+						
+						<h:outputLabel value="Estoque: " />
+						<h:inputText value="#{jogoController.jogo.estoque}" />
+						
+						<h:outputLabel value="Preço: " />
+						<h:inputText value="#{jogoController.jogo.preco}" />	
+						
+						<h:outputLabel value="Peso: " />
+						<h:inputText value="#{jogoController.jogo.peso.valor}" />	
+						
+						<h:outputLabel value="Gênero: " />
+						<h:selectOneMenu value="#{jogoController.jogo.genero}">
+							<f:selectItem itemLabel="Selecione ..."/>
+							<f:selectItems value="#{jogoController.listaGenero}"
+										   var="obj" 
+										   itemLabel="#{obj.label}"/>
+						</h:selectOneMenu>
+						
+						<h:outputLabel value="Tipo do Peso: " />
+						<h:selectOneMenu value="#{jogoController.jogo.peso.tipoPeso}">
+							<f:selectItem itemLabel="Selecione ..."/>
+							<f:selectItems value="#{jogoController.listaTipoPeso}"
+										   var="obj" 
+										   itemLabel="#{obj.label}"/>
+						</h:selectOneMenu>
+				
+					</h:panelGrid>
+					
+					<h:panelGrid id="pgBotoes" columns="4">
+						<h:commandButton value="Incluir" 
+							rendered="#{jogoController.jogo.id == null}"
+							actionListener="#{jogoController.incluir}">
+							<f:ajax execute="@this pgPrincipal" render="@form" />
+						</h:commandButton>
+							
+						<h:commandButton value="Alterar" 
+							rendered="#{jogoController.jogo.id != null}"
+							actionListener="#{jogoController.alterar}"  >
+							<f:ajax execute="@this pgPrincipal" render="@form" />
+						</h:commandButton>
+			
+						<h:commandButton value="Excluir" 
+							rendered="#{jogoController.jogo.id != null}"
+							actionListener="#{jogoController.excluir}" >
+							<f:ajax execute="@this" render="@form" />
+						</h:commandButton>
+							
+						<h:commandButton value="Limpar" 
+							actionListener="#{jogoController.limpar}">
+							<f:ajax execute="@this" render="pgPrincipal messages pgBotoes" />
+						</h:commandButton>
+					</h:panelGrid>
+					
+				</h:form>
+			</div>
+		</div>
+	</div>
+</ui:define>
+</ui:composition>
+</html>
