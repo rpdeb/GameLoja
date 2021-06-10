@@ -3,7 +3,9 @@ package br.unitins.gameloja.model;
 public enum Genero {
 	ACAO (1, "Ação"), 
 	RPG (2, "Rpg"), 
-	ESPORTE (3, "Esporte");
+	ESPORTE (3, "Esporte"),
+	CORRIDA(4,"Corrida"),
+	ESTRATEGIA(5,"Estrategia");
 	
 	private int value;
 	private String label;
